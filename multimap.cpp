@@ -66,18 +66,10 @@ int main(){
 	for(int i=0;i<passage.length();i++){
 		cout<<passage[i];
 		cntText++;
-		if(cntText==42=){
+		if(cntText==42){
 			cout<<endl;
 			cntText=0;
 		} 
 	}
-	ofstream fout;
-	fout.open("wordData.txt");
-	for(wordItor i=wordData.begin();i!=wordData.end();i++)
- 	{
-  		fout<<(*i).first<<" "
-  		 <<(*i).second<<endl;
- 	}
-	fout.close();
 	return 0; 
 } 
