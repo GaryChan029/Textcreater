@@ -34,21 +34,24 @@ int main(){
   		 <<(*i).second<<endl;
  	} */
     wordItor upper,lower;
+    int cntRand=0;
     //****开始生成句子 **** 
-    key = passage.substr(0,4);
     do{
     	cout<<key<<endl;
     	int cntKey = wordData.count(key);
    		lower = wordData.lower_bound(key);
-   		upper = wordData.upper_bound(key);
 		string check = key.substr(0,2);	
-		if(rand()%2){
-   			passage+=(*lower).second;
-   		}
-		   else{
-   			passage+=(*upper).second;
-   		}
-   		if(check=="。")break; 
+		if(check=="。")break;
+        while(1){
+        	if(rand()%2){
+        		passage+=(*lower).second;
+        		break;
+        	}
+        	lower++;
+        	if(cntRand++==cntKey){
+        		lower=wordData.lower_bound(key);
+        	}
+        }
    		key = passage.substr(passage.length()-4,passage.length()-1);
    		if(wordData.find(key)==wordData.end())break;
     }while(1);
