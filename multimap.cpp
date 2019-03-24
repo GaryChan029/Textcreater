@@ -16,25 +16,15 @@ int main(){
 	string keyTmp,wordTmp; 
 	ifstream fin;
 	fin.open("wordData.txt");
-	/* 创造字词库  
-	for(int i=0;i<learnData.length()-4;i+=2){
-		check=learnData.substr(i,2);
-		check2=learnData.substr(i+2,2);
-		if(check=="。"||check=="，"||check2=="。"||check2=="，"){
-			keyTmp=learnData.substr(i,2);
-			wordTmp=learnData.substr(i+2,4);
-		}
-		else{
-			keyTmp=learnData.substr(i,4);
-			wordTmp=learnData.substr(i+4,2);
-		}
-		wordData.insert(pair<string,string>(keyTmp,wordTmp));
-	}
-	 */
 	while(fin>>keyTmp>>wordTmp){
 		wordData.insert(pair<string,string>(keyTmp,wordTmp));
 	} 
 	fin.close();
+	cout<<"******************************************"<<endl;
+	cout<<"欢迎使用自动文章/句子生成器！             "<<endl;
+	cout<<"请输入两个中文汉字作为启动字！            "<<endl;
+	cout<<"******************************************"<<endl;
+	cout<<"请输入: "<<endl; 
 	while(cin>>key){
 		if(wordData.find(key)==wordData.end()){
 			cout<<"字词库暂时不支持该字，请重新输入！"<<endl;
@@ -45,12 +35,6 @@ int main(){
 			break;
 		}
 	}
-	/* 遍历字词库
-	for(wordItor i=wordData.begin();i!=wordData.end();i++)
- 	{
-  		cout<<(*i).first<<" "
-  		 <<(*i).second<<endl;
- 	} */ 
     wordItor upper,lower;
     int cntRand=0;
     //****开始生成句子 **** 
@@ -58,10 +42,8 @@ int main(){
     	int cntKey=wordData.count(key);
    		lower=wordData.find(key);
         while(1){
-        	if(rand()%2&&rand()%2&&rand()%2){
+        	if(rand()%100>50){
         		passage+=(*lower).second;
-        	//	wordData.erase(lower);
-        	//	cout<<key<<" "<<(*lower).second<<" "<<cntKey<<" "<<cntRand<<endl;
         		cntRand=0;
         		break;
         	}
@@ -80,7 +62,15 @@ int main(){
 		}	
    		if(wordData.find(key)==wordData.end())break;
     }while(1);
-	cout<<passage<<endl; 
+    int cntText=0;
+	for(int i=0;i<passage.length();i++){
+		cout<<passage[i];
+		cntText++;
+		if(cntText==42=){
+			cout<<endl;
+			cntText=0;
+		} 
+	}
 	ofstream fout;
 	fout.open("wordData.txt");
 	for(wordItor i=wordData.begin();i!=wordData.end();i++)
