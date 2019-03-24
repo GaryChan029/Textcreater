@@ -9,9 +9,8 @@ using namespace std;
 
 int main(){
 	string key = "春天";//启动词 
-	string passage,learnData;
+	string passage,learnData,check,check2;
 	passage+=key;//文章 
-	char * checkKey = &key[0];
 	srand(int(time(0))); //随机种子 
 	multimap<string,string> wordData;//字词库 
 	typedef multimap<string,string>::iterator wordItor;
@@ -21,11 +20,19 @@ int main(){
 	fin>>learnData;
 	/* 创造字词库 */ 
 	for(int i=0;i<learnData.length()-4;i+=2){
-		keyTmp = learnData.substr(i+0,4);
-		wordTmp = learnData.substr(i+4,2);
+		check = learnData.substr(i,2);
+		check2 = learnData.substr(i+2,2);
+		if(check=="。"||check=="，"||check2=="。"||check2=="，"){
+			keyTmp = learnData.substr(i,2);
+			wordTmp = learnData.substr(i+2,4);
+		}
+		else{
+			keyTmp = learnData.substr(i,4);
+			wordTmp = learnData.substr(i+4,2);
+		}
 		wordData.insert(pair<string,string>(keyTmp,wordTmp));
 	}
-	/*遍历字词库
+	/* 遍历字词库
 	string s="春天";
 	pair<wordItor, wordItor> pos = wordData.equal_range(s);
 	for(wordItor i=wordData.begin();i!=wordData.end();i++)
@@ -37,22 +44,27 @@ int main(){
     int cntRand=0;
     //****开始生成句子 **** 
     do{
-    	cout<<key<<endl;
     	int cntKey = wordData.count(key);
-   		lower = wordData.lower_bound(key);
-		string check = key.substr(0,2);	
-		if(check=="。")break;
+   		lower = wordData.find(key);
         while(1){
         	if(rand()%2){
         		passage+=(*lower).second;
+        	//	cout<<key<<" "<<(*lower).second<<" "<<cntKey<<" "<<cntRand<<endl;
+        		cntRand=0;
         		break;
         	}
         	lower++;
-        	if(cntRand++==cntKey){
-        		lower=wordData.lower_bound(key);
+        	if(++cntRand==cntKey){
+        		lower=wordData.find(key);
+        		cntRand=0;
         	}
         }
    		key = passage.substr(passage.length()-4,passage.length()-1);
+   		check = key.substr(2,2);
+		if(check=="。"||check=="，"){
+			if(rand()%2&&check=="。")break;
+			key=check; 
+		}	
    		if(wordData.find(key)==wordData.end())break;
     }while(1);
 	cout<<passage<<endl; 
