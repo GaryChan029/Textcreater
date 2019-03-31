@@ -16,19 +16,21 @@ int main(){
 	multimap<string,string> wordData;
 	typedef multimap<string,string>::iterator wordItor;
 	fin.open(file);
-	fin>>learnData; 
+	while(fin>>learnData){ 
 	for(int i=0;i<learnData.length()-4;i+=2){
-		check=learnData.substr(i,2);
-		check2=learnData.substr(i+2,2);
-		if(check=="¡£"||check=="£¬"||check2=="¡£"||check2=="£¬"){
-			keyTmp=learnData.substr(i,2);
-			wordTmp=learnData.substr(i+2,4);
+	 		check=learnData.substr(i,2);
+			check2=learnData.substr(i+2,2);
+			if(check2=="¡£"||check2=="£¬")continue; 
+			if(check=="¡£"||check=="£¬"){
+				keyTmp=learnData.substr(i,2);
+				wordTmp=learnData.substr(i+2,4);
+			}
+			else{
+				keyTmp=learnData.substr(i,4);
+				wordTmp=learnData.substr(i+4,2);
+			}
+			wordData.insert(pair<string,string>(keyTmp,wordTmp));
 		}
-		else{
-			keyTmp=learnData.substr(i,4);
-			wordTmp=learnData.substr(i+4,2);
-		}
-		wordData.insert(pair<string,string>(keyTmp,wordTmp));
 	}
 	fin.close();
 	ofstream fout;

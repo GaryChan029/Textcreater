@@ -8,8 +8,8 @@
 using namespace std;
 
 int main(){
-	string key = "春天";//启动词
-	string passage,learnData,check,check2;
+	string key = "";//启动词
+	string passage=key,learnData,check,check2;
 	srand(int(time(0))); //随机种子 
 	multimap<string,string> wordData;//字词库 
 	typedef multimap<string,string>::iterator wordItor;
@@ -25,7 +25,7 @@ int main(){
 	cout<<"请输入两个中文汉字作为启动字！            "<<endl;
 	cout<<"******************************************"<<endl;
 	cout<<"请输入: "<<endl; 
-	while(cin>>key){
+/*	while(cin>>key){
 		if(wordData.find(key)==wordData.end()){
 			cout<<"字词库暂时不支持该字，请重新输入！"<<endl;
 			continue;
@@ -34,7 +34,7 @@ int main(){
 			passage+=key;
 			break;
 		}
-	}
+	}*/
     wordItor upper,lower;
     int cntRand=0;
     //****开始生成句子 **** 
@@ -42,7 +42,7 @@ int main(){
     	int cntKey=wordData.count(key);
    		lower=wordData.find(key);
         while(1){
-        	if(rand()%100>50){
+        	if(rand()%2){
         		passage+=(*lower).second;
         		cntRand=0;
         		break;
@@ -71,5 +71,6 @@ int main(){
 			cntText=0;
 		} 
 	}
+	cout<<endl;
 	return 0; 
 } 
