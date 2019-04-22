@@ -22,22 +22,12 @@ int main(){
 	while(fin>>keyTmp>>wordTmp){
 		wordData.insert(pair<string,string>(keyTmp,wordTmp));
 	} 
-	fin.close();。 
+	fin.close();
 	cout<<"******************************************"<<endl;
 	cout<<"欢迎使用自动文章/句子生成器！             "<<endl;
 	cout<<"请输入两个中文汉字作为启动字！            "<<endl;
 	cout<<"******************************************"<<endl;
 	cout<<"请输入: "<<endl; 
-/*	while(cin>>key){
-		if(wordData.find(key)==wordData.end()){
-			cout<<"字词库暂时不支持该字，请重新输入！"<<endl;
-			continue;
-		}
-		else{
-			passage+=key;
-			break;
-		}
-	}*/ 
     wordItor upper,lower;
     int cntRand=0;
     //开始生成句子（后测循环） 
@@ -76,15 +66,7 @@ int main(){
    		if(wordData.find(key)==wordData.end())break;
     }while(1);
     
-    int cntText=0;
-	for(int i=0;i<passage.length();i++){
-		cout<<passage[i];
-		cntText++;
-		if(cntText==42){
-			cout<<endl;
-			cntText=0;
-		} 
-	}
+    
 	cout<<endl;
 	system("pause");
 	return 0; 
